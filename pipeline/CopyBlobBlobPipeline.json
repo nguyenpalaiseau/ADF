@@ -30,7 +30,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "outputdataset",
+						"referenceName": "outputblobdataset",
 						"type": "DatasetReference"
 					}
 				]
