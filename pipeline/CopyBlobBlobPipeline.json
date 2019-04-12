@@ -24,7 +24,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "inputdataset",
+						"referenceName": "inputblobdataset",
 						"type": "DatasetReference"
 					}
 				],

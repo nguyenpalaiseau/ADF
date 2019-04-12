@@ -1,5 +1,5 @@
 {
-	"name": "inputdataset",
+	"name": "inputblobdataset",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureStorageLinkedService",
