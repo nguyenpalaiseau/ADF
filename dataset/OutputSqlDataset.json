@@ -1,0 +1,23 @@
+{
+	"name": "OutputSqlDataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureSqlTable",
+		"structure": [
+			{
+				"name": "FirstName",
+				"type": "String"
+			},
+			{
+				"name": "LastName",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[dbo].[emp]"
+		}
+	}
+}

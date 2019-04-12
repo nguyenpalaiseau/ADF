@@ -17,11 +17,28 @@
 						"type": "BlobSource",
 						"recursive": true
 					},
-					"enableStaging": false
+					"sink": {
+						"type": "SqlSink",
+						"writeBatchSize": 10000
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"Prop_0": "FirstName",
+							"Prop_1": "LastName"
+						}
+					}
 				},
 				"inputs": [
 					{
 						"referenceName": "inputblobdataset",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "OutputSqlDataset",
 						"type": "DatasetReference"
 					}
 				]
