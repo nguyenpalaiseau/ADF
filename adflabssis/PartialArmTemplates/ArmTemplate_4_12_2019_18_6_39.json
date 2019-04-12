@@ -6,30 +6,6 @@
 			"type": "string",
 			"metadata": "Data Factory Name",
 			"defaultValue": "adflabssis"
-		},
-		"AzureSqlDatabaseLinkedService_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
-		},
-		"AzureStorageLinkedService_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
-		},
-		"inputblobdataset_properties_typeProperties_fileName": {
-			"type": "string",
-			"defaultValue": "emp.txt"
-		},
-		"inputblobdataset_properties_typeProperties_folderPath": {
-			"type": "string",
-			"defaultValue": "adf-blob/input"
-		},
-		"outputblobdataset_properties_typeProperties_fileName": {
-			"type": "string",
-			"defaultValue": ""
-		},
-		"outputblobdataset_properties_typeProperties_folderPath": {
-			"type": "string",
-			"defaultValue": "adf-blob/output"
 		}
 	},
 	"variables": {
@@ -45,7 +21,6 @@
 					{
 						"name": "CopyFromBlobToSql",
 						"type": "Copy",
-						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -53,7 +28,6 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
 						"typeProperties": {
 							"source": {
 								"type": "BlobSource",
@@ -75,20 +49,17 @@
 						"inputs": [
 							{
 								"referenceName": "inputblobdataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "OutputSqlDataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
-				],
-				"annotations": []
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/inputblobdataset')]",
@@ -104,7 +75,6 @@
 					{
 						"name": "CopyFromBlobToBlob",
 						"type": "Copy",
-						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -112,7 +82,6 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
 						"typeProperties": {
 							"source": {
 								"type": "BlobSource",
@@ -126,20 +95,17 @@
 						"inputs": [
 							{
 								"referenceName": "inputblobdataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "outputblobdataset",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
-				],
-				"annotations": []
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/inputblobdataset')]",
@@ -155,7 +121,6 @@
 					"referenceName": "AzureSqlDatabaseLinkedService",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
 				"type": "AzureSqlTable",
 				"structure": [
 					{
@@ -170,10 +135,7 @@
 				"typeProperties": {
 					"tableName": "[concat('[', 'dbo].[emp]')]"
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
-			]
+			}
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/inputblobdataset')]",
@@ -184,7 +146,6 @@
 					"referenceName": "AzureStorageLinkedService",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
 				"type": "AzureBlob",
 				"structure": [
 					{
@@ -206,13 +167,10 @@
 						"skipLineCount": 0,
 						"firstRowAsHeader": false
 					},
-					"fileName": "[parameters('inputblobdataset_properties_typeProperties_fileName')]",
-					"folderPath": "[parameters('inputblobdataset_properties_typeProperties_folderPath')]"
+					"fileName": "emp.txt",
+					"folderPath": "adf-blob/input"
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
-			]
+			}
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/outputblobdataset')]",
@@ -223,7 +181,6 @@
 					"referenceName": "AzureStorageLinkedService",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
 				"type": "AzureBlob",
 				"typeProperties": {
 					"format": {
@@ -235,39 +192,10 @@
 						"skipLineCount": 0,
 						"firstRowAsHeader": false
 					},
-					"fileName": "[parameters('outputblobdataset_properties_typeProperties_fileName')]",
-					"folderPath": "[parameters('outputblobdataset_properties_typeProperties_folderPath')]"
+					"fileName": "",
+					"folderPath": "adf-blob/output"
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseLinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureStorageLinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureStorageLinkedService_connectionString')]"
-				}
-			},
-			"dependsOn": []
+			}
 		}
 	]
 }

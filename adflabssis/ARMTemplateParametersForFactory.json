@@ -5,19 +5,22 @@
 		"factoryName": {
 			"value": "adflabssis"
 		},
+		"AzureSqlDatabaseLinkedService_connectionString": {
+			"value": ""
+		},
 		"AzureStorageLinkedService_connectionString": {
 			"value": ""
 		},
-		"inputdataset_properties_typeProperties_fileName": {
+		"inputblobdataset_properties_typeProperties_fileName": {
 			"value": "emp.txt"
 		},
-		"inputdataset_properties_typeProperties_folderPath": {
+		"inputblobdataset_properties_typeProperties_folderPath": {
 			"value": "adf-blob/input"
 		},
-		"outputdataset_properties_typeProperties_fileName": {
+		"outputblobdataset_properties_typeProperties_fileName": {
 			"value": ""
 		},
-		"outputdataset_properties_typeProperties_folderPath": {
+		"outputblobdataset_properties_typeProperties_folderPath": {
 			"value": "adf-blob/output"
 		}
 	}

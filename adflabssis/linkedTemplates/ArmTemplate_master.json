@@ -7,23 +7,27 @@
 			"metadata": "Data Factory Name",
 			"defaultValue": "adflabssis"
 		},
+		"AzureSqlDatabaseLinkedService_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
+		},
 		"AzureStorageLinkedService_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
-		"inputdataset_properties_typeProperties_fileName": {
+		"inputblobdataset_properties_typeProperties_fileName": {
 			"type": "string",
 			"defaultValue": "emp.txt"
 		},
-		"inputdataset_properties_typeProperties_folderPath": {
+		"inputblobdataset_properties_typeProperties_folderPath": {
 			"type": "string",
 			"defaultValue": "adf-blob/input"
 		},
-		"outputdataset_properties_typeProperties_fileName": {
+		"outputblobdataset_properties_typeProperties_fileName": {
 			"type": "string",
 			"defaultValue": ""
 		},
-		"outputdataset_properties_typeProperties_folderPath": {
+		"outputblobdataset_properties_typeProperties_folderPath": {
 			"type": "string",
 			"defaultValue": "adf-blob/output"
 		},
@@ -54,20 +58,23 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
+					"AzureSqlDatabaseLinkedService_connectionString": {
+						"value": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
+					},
 					"AzureStorageLinkedService_connectionString": {
 						"value": "[parameters('AzureStorageLinkedService_connectionString')]"
 					},
-					"inputdataset_properties_typeProperties_fileName": {
-						"value": "[parameters('inputdataset_properties_typeProperties_fileName')]"
+					"inputblobdataset_properties_typeProperties_fileName": {
+						"value": "[parameters('inputblobdataset_properties_typeProperties_fileName')]"
 					},
-					"inputdataset_properties_typeProperties_folderPath": {
-						"value": "[parameters('inputdataset_properties_typeProperties_folderPath')]"
+					"inputblobdataset_properties_typeProperties_folderPath": {
+						"value": "[parameters('inputblobdataset_properties_typeProperties_folderPath')]"
 					},
-					"outputdataset_properties_typeProperties_fileName": {
-						"value": "[parameters('outputdataset_properties_typeProperties_fileName')]"
+					"outputblobdataset_properties_typeProperties_fileName": {
+						"value": "[parameters('outputblobdataset_properties_typeProperties_fileName')]"
 					},
-					"outputdataset_properties_typeProperties_folderPath": {
-						"value": "[parameters('outputdataset_properties_typeProperties_folderPath')]"
+					"outputblobdataset_properties_typeProperties_folderPath": {
+						"value": "[parameters('outputblobdataset_properties_typeProperties_folderPath')]"
 					}
 				}
 			},
