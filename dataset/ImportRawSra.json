@@ -20,19 +20,7 @@
 				"type": "String"
 			},
 			{
-				"name": "RAP_VEH_PROV",
-				"type": "String"
-			},
-			{
-				"name": "LIBELLE_MARQUE",
-				"type": "String"
-			},
-			{
 				"name": "MARQUE",
-				"type": "String"
-			},
-			{
-				"name": "LIBELLE_MODELE",
 				"type": "String"
 			},
 			{
@@ -41,10 +29,6 @@
 			},
 			{
 				"name": "VERSION",
-				"type": "String"
-			},
-			{
-				"name": "CODE_SEGMENT",
 				"type": "String"
 			},
 			{
@@ -348,23 +332,7 @@
 				"type": "String"
 			},
 			{
-				"name": "TIMESTAMP_CREATE",
-				"type": "String"
-			},
-			{
-				"name": "TIMESTAMP_UPDATE",
-				"type": "String"
-			},
-			{
 				"name": "EMISSION_CO2",
-				"type": "String"
-			},
-			{
-				"name": "ERROR_CODE",
-				"type": "String"
-			},
-			{
-				"name": "ERROR_DESC",
 				"type": "String"
 			}
 		],
