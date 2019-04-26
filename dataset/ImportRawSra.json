@@ -1,0 +1,379 @@
+{
+	"name": "ImportRawSra",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureSqlTable",
+		"structure": [
+			{
+				"name": "UPDATE_MODE",
+				"type": "String"
+			},
+			{
+				"name": "CODE_AUTO",
+				"type": "String"
+			},
+			{
+				"name": "NUM_ORDRE",
+				"type": "String"
+			},
+			{
+				"name": "VEHICULE_PROV",
+				"type": "String"
+			},
+			{
+				"name": "RAP_VEH_PROV",
+				"type": "String"
+			},
+			{
+				"name": "LIBELLE_MARQUE",
+				"type": "String"
+			},
+			{
+				"name": "MARQUE",
+				"type": "String"
+			},
+			{
+				"name": "LIBELLE_MODELE",
+				"type": "String"
+			},
+			{
+				"name": "MODELE",
+				"type": "String"
+			},
+			{
+				"name": "VERSION",
+				"type": "String"
+			},
+			{
+				"name": "CODE_SEGMENT",
+				"type": "String"
+			},
+			{
+				"name": "GENERATION",
+				"type": "String"
+			},
+			{
+				"name": "CARROSSERIE",
+				"type": "String"
+			},
+			{
+				"name": "ALIMENTATION",
+				"type": "String"
+			},
+			{
+				"name": "ENERGIE",
+				"type": "String"
+			},
+			{
+				"name": "PUISS_ADMIN",
+				"type": "String"
+			},
+			{
+				"name": "GENRE",
+				"type": "String"
+			},
+			{
+				"name": "NB_PLACE",
+				"type": "String"
+			},
+			{
+				"name": "SERIE_LMT",
+				"type": "String"
+			},
+			{
+				"name": "TYPE_MINES",
+				"type": "String"
+			},
+			{
+				"name": "NUM_CNIT",
+				"type": "String"
+			},
+			{
+				"name": "DT_DEB_COMMER",
+				"type": "String"
+			},
+			{
+				"name": "DT_FIN_COMMER",
+				"type": "String"
+			},
+			{
+				"name": "NB_CYLINDRE",
+				"type": "String"
+			},
+			{
+				"name": "DISPO_CYLINDRE",
+				"type": "String"
+			},
+			{
+				"name": "CYLINDREE",
+				"type": "String"
+			},
+			{
+				"name": "VITESSE_MAX",
+				"type": "String"
+			},
+			{
+				"name": "POS_MOTEUR",
+				"type": "String"
+			},
+			{
+				"name": "PUISS_CEE",
+				"type": "String"
+			},
+			{
+				"name": "PUISS_DIN",
+				"type": "String"
+			},
+			{
+				"name": "REGIME_PUISS_MAX",
+				"type": "String"
+			},
+			{
+				"name": "COUPLE_MOTEUR_MAX",
+				"type": "String"
+			},
+			{
+				"name": "REGIME_CPLMOTEUR_MAX",
+				"type": "String"
+			},
+			{
+				"name": "TRANSMISSION",
+				"type": "String"
+			},
+			{
+				"name": "BOITE_VITESSE",
+				"type": "String"
+			},
+			{
+				"name": "NB_RAPPORTS",
+				"type": "String"
+			},
+			{
+				"name": "SUSPENSION",
+				"type": "String"
+			},
+			{
+				"name": "TYPE_FREIN",
+				"type": "String"
+			},
+			{
+				"name": "ASSIST_FREIN",
+				"type": "String"
+			},
+			{
+				"name": "LONGUEUR",
+				"type": "String"
+			},
+			{
+				"name": "LARGEUR",
+				"type": "String"
+			},
+			{
+				"name": "HAUTEUR",
+				"type": "String"
+			},
+			{
+				"name": "EMPATTEMENT",
+				"type": "String"
+			},
+			{
+				"name": "VOIE_AV",
+				"type": "String"
+			},
+			{
+				"name": "VOIE_ARR",
+				"type": "String"
+			},
+			{
+				"name": "POIDS_VIDE",
+				"type": "String"
+			},
+			{
+				"name": "PTAC",
+				"type": "String"
+			},
+			{
+				"name": "CHARGE_UTILE",
+				"type": "String"
+			},
+			{
+				"name": "AIRBAG_COND",
+				"type": "String"
+			},
+			{
+				"name": "AIRBAG_PASS_AV",
+				"type": "String"
+			},
+			{
+				"name": "AIRBAG_LAT_AV",
+				"type": "String"
+			},
+			{
+				"name": "AIRBAG_LAT_AR",
+				"type": "String"
+			},
+			{
+				"name": "DIRECT_ASSIST",
+				"type": "String"
+			},
+			{
+				"name": "ASSIST_FREIN_URGENCE",
+				"type": "String"
+			},
+			{
+				"name": "ANTIBLOC_ROUES",
+				"type": "String"
+			},
+			{
+				"name": "CTRL_DYN_STABILITE",
+				"type": "String"
+			},
+			{
+				"name": "DERNIER_TARIF_E",
+				"type": "String"
+			},
+			{
+				"name": "DERNIER_TARIF_F",
+				"type": "String"
+			},
+			{
+				"name": "DT_DER_TARIF",
+				"type": "String"
+			},
+			{
+				"name": "SOURCE_DER_TARIF",
+				"type": "String"
+			},
+			{
+				"name": "TARIF_ORIGINE_E",
+				"type": "String"
+			},
+			{
+				"name": "TARIF_ORIGINE_F",
+				"type": "String"
+			},
+			{
+				"name": "DT_TARIF_ORIGINE",
+				"type": "String"
+			},
+			{
+				"name": "SOURCE_TARIF_ORIGINE",
+				"type": "String"
+			},
+			{
+				"name": "DERNIER_CT_RMPL_PIECES",
+				"type": "String"
+			},
+			{
+				"name": "DERNIER_CT_RMPL_BLOCOPT",
+				"type": "String"
+			},
+			{
+				"name": "DERNIER_CT_RMPL_PAREBRISE",
+				"type": "String"
+			},
+			{
+				"name": "DT_DERNIER_COUTS",
+				"type": "String"
+			},
+			{
+				"name": "CT_ORIGINE_RMPL_PIECES",
+				"type": "String"
+			},
+			{
+				"name": "CT_ORIGINE_RMPL_BLOCOPT",
+				"type": "String"
+			},
+			{
+				"name": "CT_ORIGINE_RMPL_PAREBRISE",
+				"type": "String"
+			},
+			{
+				"name": "DT_COUTS_ORIGINE",
+				"type": "String"
+			},
+			{
+				"name": "GROUPE_SRA",
+				"type": "String"
+			},
+			{
+				"name": "CLASSE_PRIX",
+				"type": "String"
+			},
+			{
+				"name": "CLASSE_REPARATION",
+				"type": "String"
+			},
+			{
+				"name": "ANTIDEMARRAGE_ACT",
+				"type": "String"
+			},
+			{
+				"name": "DT_ANTIDEMARRAGE_ACT",
+				"type": "String"
+			},
+			{
+				"name": "ANTIDEMARRAGE_PREC",
+				"type": "String"
+			},
+			{
+				"name": "DT_ANTIDEMARRAGE_PREC",
+				"type": "String"
+			},
+			{
+				"name": "CODE_GTA",
+				"type": "String"
+			},
+			{
+				"name": "NOTE_SECU_PASSIVE",
+				"type": "String"
+			},
+			{
+				"name": "CT_CHOC_AV",
+				"type": "String"
+			},
+			{
+				"name": "CT_CHOC_ARR",
+				"type": "String"
+			},
+			{
+				"name": "GROUPE_SRA_ACT",
+				"type": "String"
+			},
+			{
+				"name": "CLASSE_PRIX_ACT",
+				"type": "String"
+			},
+			{
+				"name": "CLASSE_REPAR_ACT",
+				"type": "String"
+			},
+			{
+				"name": "TIMESTAMP_CREATE",
+				"type": "String"
+			},
+			{
+				"name": "TIMESTAMP_UPDATE",
+				"type": "String"
+			},
+			{
+				"name": "EMISSION_CO2",
+				"type": "String"
+			},
+			{
+				"name": "ERROR_CODE",
+				"type": "String"
+			},
+			{
+				"name": "ERROR_DESC",
+				"type": "String"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[sra].[ImportSRA]"
+		}
+	}
+}
