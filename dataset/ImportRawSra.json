@@ -20,10 +20,6 @@
 				"type": "String"
 			},
 			{
-				"name": "VEHICULE_PROV",
-				"type": "String"
-			},
-			{
 				"name": "RAP_VEH_PROV",
 				"type": "String"
 			},
