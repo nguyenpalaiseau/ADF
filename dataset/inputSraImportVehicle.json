@@ -1,0 +1,23 @@
+{
+	"name": "inputSraImportVehicle",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureBlob",
+		"typeProperties": {
+			"format": {
+				"type": "TextFormat",
+				"columnDelimiter": ";",
+				"rowDelimiter": "",
+				"nullValue": "\\N",
+				"treatEmptyAsNull": true,
+				"skipLineCount": 0,
+				"firstRowAsHeader": false
+			},
+			"fileName": "20190413_010437_Automobiles_quotidien_MAJ_Azure.txt",
+			"folderPath": "adf-blob/input"
+		}
+	}
+}
