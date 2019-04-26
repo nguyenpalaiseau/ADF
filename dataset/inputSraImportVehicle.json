@@ -6,6 +6,380 @@
 			"type": "LinkedServiceReference"
 		},
 		"type": "AzureBlob",
+		"structure": [
+			{
+				"name": "Prop_0",
+				"type": "String"
+			},
+			{
+				"name": "UpdateMode",
+				"type": "String"
+			},
+			{
+				"name": "Identifiant",
+				"type": "String"
+			},
+			{
+				"name": "NumeroOrdre",
+				"type": "String"
+			},
+			{
+				"name": "Marque",
+				"type": "String"
+			},
+			{
+				"name": "Modele",
+				"type": "String"
+			},
+			{
+				"name": "Version",
+				"type": "String"
+			},
+			{
+				"name": "Generation",
+				"type": "String"
+			},
+			{
+				"name": "Carrosserie",
+				"type": "String"
+			},
+			{
+				"name": "Alimentation",
+				"type": "String"
+			},
+			{
+				"name": "Energie",
+				"type": "String"
+			},
+			{
+				"name": "PuissanceAdministrative",
+				"type": "String"
+			},
+			{
+				"name": "Genre",
+				"type": "String"
+			},
+			{
+				"name": "NbPlaces",
+				"type": "String"
+			},
+			{
+				"name": "SerieLimitee",
+				"type": "String"
+			},
+			{
+				"name": "TypeMines",
+				"type": "String"
+			},
+			{
+				"name": "NumeroCnit",
+				"type": "String"
+			},
+			{
+				"name": "DateDebutCommercialisation",
+				"type": "String"
+			},
+			{
+				"name": "DateFinCommercialisation",
+				"type": "String"
+			},
+			{
+				"name": "NbCylindre",
+				"type": "String"
+			},
+			{
+				"name": "DispositionCylindres",
+				"type": "String"
+			},
+			{
+				"name": "Cylindree",
+				"type": "String"
+			},
+			{
+				"name": "VitesseMaximum",
+				"type": "String"
+			},
+			{
+				"name": "PositionMoteur",
+				"type": "String"
+			},
+			{
+				"name": "PuissanceCee",
+				"type": "String"
+			},
+			{
+				"name": "Prop_25",
+				"type": "String"
+			},
+			{
+				"name": "Prop_26",
+				"type": "String"
+			},
+			{
+				"name": "Prop_27",
+				"type": "String"
+			},
+			{
+				"name": "Prop_28",
+				"type": "String"
+			},
+			{
+				"name": "Prop_29",
+				"type": "String"
+			},
+			{
+				"name": "Prop_30",
+				"type": "String"
+			},
+			{
+				"name": "Prop_31",
+				"type": "String"
+			},
+			{
+				"name": "Prop_32",
+				"type": "String"
+			},
+			{
+				"name": "Prop_33",
+				"type": "String"
+			},
+			{
+				"name": "Prop_34",
+				"type": "String"
+			},
+			{
+				"name": "Prop_35",
+				"type": "String"
+			},
+			{
+				"name": "Prop_36",
+				"type": "String"
+			},
+			{
+				"name": "Prop_37",
+				"type": "String"
+			},
+			{
+				"name": "Prop_38",
+				"type": "String"
+			},
+			{
+				"name": "Prop_39",
+				"type": "String"
+			},
+			{
+				"name": "Prop_40",
+				"type": "String"
+			},
+			{
+				"name": "Prop_41",
+				"type": "String"
+			},
+			{
+				"name": "Prop_42",
+				"type": "String"
+			},
+			{
+				"name": "Prop_43",
+				"type": "String"
+			},
+			{
+				"name": "Prop_44",
+				"type": "String"
+			},
+			{
+				"name": "Prop_45",
+				"type": "String"
+			},
+			{
+				"name": "Prop_46",
+				"type": "String"
+			},
+			{
+				"name": "Prop_47",
+				"type": "String"
+			},
+			{
+				"name": "Prop_48",
+				"type": "String"
+			},
+			{
+				"name": "Prop_49",
+				"type": "String"
+			},
+			{
+				"name": "Prop_50",
+				"type": "String"
+			},
+			{
+				"name": "Prop_51",
+				"type": "String"
+			},
+			{
+				"name": "Prop_52",
+				"type": "String"
+			},
+			{
+				"name": "Prop_53",
+				"type": "String"
+			},
+			{
+				"name": "Prop_54",
+				"type": "String"
+			},
+			{
+				"name": "Prop_55",
+				"type": "String"
+			},
+			{
+				"name": "Prop_56",
+				"type": "String"
+			},
+			{
+				"name": "Prop_57",
+				"type": "String"
+			},
+			{
+				"name": "Prop_58",
+				"type": "String"
+			},
+			{
+				"name": "Prop_59",
+				"type": "String"
+			},
+			{
+				"name": "Prop_60",
+				"type": "String"
+			},
+			{
+				"name": "Prop_61",
+				"type": "String"
+			},
+			{
+				"name": "Prop_62",
+				"type": "String"
+			},
+			{
+				"name": "Prop_63",
+				"type": "String"
+			},
+			{
+				"name": "Prop_64",
+				"type": "String"
+			},
+			{
+				"name": "Prop_65",
+				"type": "String"
+			},
+			{
+				"name": "Prop_66",
+				"type": "String"
+			},
+			{
+				"name": "Prop_67",
+				"type": "String"
+			},
+			{
+				"name": "Prop_68",
+				"type": "String"
+			},
+			{
+				"name": "Prop_69",
+				"type": "String"
+			},
+			{
+				"name": "Prop_70",
+				"type": "String"
+			},
+			{
+				"name": "Prop_71",
+				"type": "String"
+			},
+			{
+				"name": "Prop_72",
+				"type": "String"
+			},
+			{
+				"name": "Prop_73",
+				"type": "String"
+			},
+			{
+				"name": "Prop_74",
+				"type": "String"
+			},
+			{
+				"name": "Prop_75",
+				"type": "String"
+			},
+			{
+				"name": "Prop_76",
+				"type": "String"
+			},
+			{
+				"name": "Prop_77",
+				"type": "String"
+			},
+			{
+				"name": "Prop_78",
+				"type": "String"
+			},
+			{
+				"name": "Prop_79",
+				"type": "String"
+			},
+			{
+				"name": "Prop_80",
+				"type": "String"
+			},
+			{
+				"name": "Prop_81",
+				"type": "String"
+			},
+			{
+				"name": "Prop_82",
+				"type": "String"
+			},
+			{
+				"name": "Prop_83",
+				"type": "String"
+			},
+			{
+				"name": "Prop_84",
+				"type": "String"
+			},
+			{
+				"name": "Prop_85",
+				"type": "String"
+			},
+			{
+				"name": "Prop_86",
+				"type": "String"
+			},
+			{
+				"name": "Prop_87",
+				"type": "String"
+			},
+			{
+				"name": "Prop_88",
+				"type": "String"
+			},
+			{
+				"name": "Prop_89",
+				"type": "String"
+			},
+			{
+				"name": "Prop_90",
+				"type": "String"
+			},
+			{
+				"name": "Prop_91",
+				"type": "String"
+			},
+			{
+				"name": "Prop_92",
+				"type": "String"
+			}
+		],
 		"typeProperties": {
 			"format": {
 				"type": "TextFormat",
