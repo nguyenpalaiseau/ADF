@@ -378,10 +378,6 @@
 			{
 				"name": "Prop_92",
 				"type": "String"
-			},
-			{
-				"name": "Empty",
-				"type": "String"
 			}
 		],
 		"typeProperties": {
