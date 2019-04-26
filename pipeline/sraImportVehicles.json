@@ -13,8 +13,115 @@
 					"secureInput": false
 				},
 				"typeProperties": {
-					"enableStaging": false
-				}
+					"source": {
+						"type": "BlobSource",
+						"recursive": true
+					},
+					"sink": {
+						"type": "SqlSink",
+						"writeBatchSize": 10000
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"columnMappings": {
+							"UpdateMode": "UPDATE_MODE",
+							"Identifiant": "CODE_AUTO",
+							"NumeroOrdre": "NUM_ORDRE",
+							"Marque": "MARQUE",
+							"Modele": "MODELE",
+							"Version": "VERSION",
+							"Generation": "GENERATION",
+							"Carrosserie": "CARROSSERIE",
+							"Alimentation": "ALIMENTATION",
+							"Energie": "ENERGIE",
+							"PuissanceAdministrative": "PUISS_ADMIN",
+							"Genre": "GENRE",
+							"NbPlaces": "NB_PLACE",
+							"SerieLimitee": "SERIE_LMT",
+							"TypeMines": "TYPE_MINES",
+							"NumeroCnit": "NUM_CNIT",
+							"DateDebutCommercialisation": "DT_DEB_COMMER",
+							"DateFinCommercialisation": "DT_FIN_COMMER",
+							"NbCylindre": "NB_CYLINDRE",
+							"DispositionCylindres": "DISPO_CYLINDRE",
+							"Cylindree": "CYLINDREE",
+							"VitesseMaximum": "VITESSE_MAX",
+							"PositionMoteur": "POS_MOTEUR",
+							"PuissanceCee": "PUISS_CEE",
+							"PuissanceDin": "PUISS_DIN",
+							"RegimePuissanceMaximum": "REGIME_PUISS_MAX",
+							"CoupleMoteurMaximum": "COUPLE_MOTEUR_MAX",
+							"RegimeCoupleMoteurMaximum": "REGIME_CPLMOTEUR_MAX",
+							"Transmission": "TRANSMISSION",
+							"BoiteVitesses": "BOITE_VITESSE",
+							"NbRapports": "NB_RAPPORTS",
+							"Suspension": "SUSPENSION",
+							"TypeFreins": "TYPE_FREIN",
+							"AssistanceFreinage": "ASSIST_FREIN",
+							"Longueur": "LONGUEUR",
+							"Largeur": "LARGEUR",
+							"Hauteur": "HAUTEUR",
+							"Empattement": "EMPATTEMENT",
+							"VoieAvant": "VOIE_AV",
+							"VoieArriere": "VOIE_ARR",
+							"PoidsVide": "POIDS_VIDE",
+							"PTAC": "PTAC",
+							"ChargeUtile": "CHARGE_UTILE",
+							"AirbagConducteur": "AIRBAG_COND",
+							"AirbagPassagerAvant": "AIRBAG_PASS_AV",
+							"AirbagsLaterauxAvant": "AIRBAG_LAT_AV",
+							"AirbagsLaterauxArriere": "AIRBAG_LAT_AR",
+							"DirectionAssistee": "DIRECT_ASSIST",
+							"AssistanceFreinageUrgence": "ASSIST_FREIN_URGENCE",
+							"AntiblocageRoues": "ANTIBLOC_ROUES",
+							"ControleDynamiqueStabilite": "CTRL_DYN_STABILITE",
+							"DernierTarifEuros": "DERNIER_TARIF_E",
+							"DernierTarifFrancs": "DERNIER_TARIF_F",
+							"DatDernierTarif": "DT_DER_TARIF",
+							"SourceDernierTarif": "SOURCE_DER_TARIF",
+							"TarifOrigineEuros": "TARIF_ORIGINE_E",
+							"TarifOrigineFrancs": "TARIF_ORIGINE_F",
+							"DateTarifOrigine": "DT_TARIF_ORIGINE",
+							"SourceTarifOrigine": "SOURCE_TARIF_ORIGINE",
+							"DernierCoutRempPiecesEurosHt": "DERNIER_CT_RMPL_PIECES",
+							"DernierCoutRempBlocOptiqueEurosHt": "DERNIER_CT_RMPL_BLOCOPT",
+							"DernierCoutRempPareBriseEurosHt": "DERNIER_CT_RMPL_PAREBRISE",
+							"DateDerniersCouts": "DT_DERNIER_COUTS",
+							"CoutOrigineRempPiecesEurosHt": "CT_ORIGINE_RMPL_PIECES",
+							"CoutOrigineRempBlocOptiqueEurosHt": "CT_ORIGINE_RMPL_BLOCOPT",
+							"CoutOrigineRempPareBriseEurosHt": "CT_ORIGINE_RMPL_PAREBRISE",
+							"DateCoutsOrigine": "DT_COUTS_ORIGINE",
+							"GroupeSraOrigine": "GROUPE_SRA",
+							"ClassePrixOrigine": "CLASSE_PRIX",
+							"ClasseReparationOrigine": "CLASSE_REPARATION",
+							"AntidemarrageActuel": "ANTIDEMARRAGE_ACT",
+							"DateAttributionAntidemarrageActuel": "DT_ANTIDEMARRAGE_ACT",
+							"AntidemarragePrecedent": "ANTIDEMARRAGE_PREC",
+							"DateAttributionAntidemarragePrecedent": "DT_ANTIDEMARRAGE_PREC",
+							"CodeGta": "CODE_GTA",
+							"NoteSecuritePassive": "NOTE_SECU_PASSIVE",
+							"CoutChocAvant": "CT_CHOC_AV",
+							"CoutChocArriere": "CT_CHOC_ARR",
+							"GroupeSraActuel": "GROUPE_SRA_ACT",
+							"ClassePrixActuelle": "CLASSE_PRIX_ACT",
+							"ClasseReparationActuelle": "CLASSE_REPAR_ACT",
+							"EmissionCo2": "EMISSION_CO2"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "inputSraImportVehicle",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ImportRawSra",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		]
 	}
