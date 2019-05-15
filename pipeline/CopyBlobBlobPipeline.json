@@ -34,6 +34,38 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "SendMailSuccess",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "CopyFromBlobToBlob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"typeProperties": {
+					"url": "https://prod-113.westeurope.logic.azure.com:443/workflows/c6fe8a1133434414b971fd55f40230c5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ndwg-Bzzv2ffx0DxP3cfcuSpPiJtRBnk7SHfsEZdr9c",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('CopyFromBlobToBlob').output.dataWritten}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}",
+						"receiver": "@pipeline().parameters.receiver"
+					}
+				}
 			}
 		]
 	}
