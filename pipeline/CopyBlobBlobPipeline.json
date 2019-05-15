@@ -67,6 +67,12 @@
 					}
 				}
 			}
-		]
+		],
+		"parameters": {
+			"receiver": {
+				"type": "string",
+				"defaultValue": "khang.nguyen@axa-direct.com"
+			}
+		}
 	}
 }
