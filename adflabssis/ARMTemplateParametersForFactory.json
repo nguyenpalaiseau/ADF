@@ -11,6 +11,12 @@
 		"AzureStorageLinkedService_connectionString": {
 			"value": ""
 		},
+		"inputSraImportVehicle_properties_typeProperties_fileName": {
+			"value": "20190413_010437_Automobiles_quotidien_MAJ_Azure.txt"
+		},
+		"inputSraImportVehicle_properties_typeProperties_folderPath": {
+			"value": "adf-blob/input"
+		},
 		"inputblobdataset_properties_typeProperties_fileName": {
 			"value": "emp.txt"
 		},

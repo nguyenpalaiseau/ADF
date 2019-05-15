@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
 		},
+		"inputSraImportVehicle_properties_typeProperties_fileName": {
+			"type": "string",
+			"defaultValue": "20190413_010437_Automobiles_quotidien_MAJ_Azure.txt"
+		},
+		"inputSraImportVehicle_properties_typeProperties_folderPath": {
+			"type": "string",
+			"defaultValue": "adf-blob/input"
+		},
 		"inputblobdataset_properties_typeProperties_fileName": {
 			"type": "string",
 			"defaultValue": "emp.txt"
@@ -63,6 +71,355 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ImportRawSra')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"structure": [
+					{
+						"name": "UPDATE_MODE",
+						"type": "String"
+					},
+					{
+						"name": "CODE_AUTO",
+						"type": "String"
+					},
+					{
+						"name": "NUM_ORDRE",
+						"type": "String"
+					},
+					{
+						"name": "MARQUE",
+						"type": "String"
+					},
+					{
+						"name": "MODELE",
+						"type": "String"
+					},
+					{
+						"name": "VERSION",
+						"type": "String"
+					},
+					{
+						"name": "GENERATION",
+						"type": "String"
+					},
+					{
+						"name": "CARROSSERIE",
+						"type": "String"
+					},
+					{
+						"name": "ALIMENTATION",
+						"type": "String"
+					},
+					{
+						"name": "ENERGIE",
+						"type": "String"
+					},
+					{
+						"name": "PUISS_ADMIN",
+						"type": "String"
+					},
+					{
+						"name": "GENRE",
+						"type": "String"
+					},
+					{
+						"name": "NB_PLACE",
+						"type": "String"
+					},
+					{
+						"name": "SERIE_LMT",
+						"type": "String"
+					},
+					{
+						"name": "TYPE_MINES",
+						"type": "String"
+					},
+					{
+						"name": "NUM_CNIT",
+						"type": "String"
+					},
+					{
+						"name": "DT_DEB_COMMER",
+						"type": "String"
+					},
+					{
+						"name": "DT_FIN_COMMER",
+						"type": "String"
+					},
+					{
+						"name": "NB_CYLINDRE",
+						"type": "String"
+					},
+					{
+						"name": "DISPO_CYLINDRE",
+						"type": "String"
+					},
+					{
+						"name": "CYLINDREE",
+						"type": "String"
+					},
+					{
+						"name": "VITESSE_MAX",
+						"type": "String"
+					},
+					{
+						"name": "POS_MOTEUR",
+						"type": "String"
+					},
+					{
+						"name": "PUISS_CEE",
+						"type": "String"
+					},
+					{
+						"name": "PUISS_DIN",
+						"type": "String"
+					},
+					{
+						"name": "REGIME_PUISS_MAX",
+						"type": "String"
+					},
+					{
+						"name": "COUPLE_MOTEUR_MAX",
+						"type": "String"
+					},
+					{
+						"name": "REGIME_CPLMOTEUR_MAX",
+						"type": "String"
+					},
+					{
+						"name": "TRANSMISSION",
+						"type": "String"
+					},
+					{
+						"name": "BOITE_VITESSE",
+						"type": "String"
+					},
+					{
+						"name": "NB_RAPPORTS",
+						"type": "String"
+					},
+					{
+						"name": "SUSPENSION",
+						"type": "String"
+					},
+					{
+						"name": "TYPE_FREIN",
+						"type": "String"
+					},
+					{
+						"name": "ASSIST_FREIN",
+						"type": "String"
+					},
+					{
+						"name": "LONGUEUR",
+						"type": "String"
+					},
+					{
+						"name": "LARGEUR",
+						"type": "String"
+					},
+					{
+						"name": "HAUTEUR",
+						"type": "String"
+					},
+					{
+						"name": "EMPATTEMENT",
+						"type": "String"
+					},
+					{
+						"name": "VOIE_AV",
+						"type": "String"
+					},
+					{
+						"name": "VOIE_ARR",
+						"type": "String"
+					},
+					{
+						"name": "POIDS_VIDE",
+						"type": "String"
+					},
+					{
+						"name": "PTAC",
+						"type": "String"
+					},
+					{
+						"name": "CHARGE_UTILE",
+						"type": "String"
+					},
+					{
+						"name": "AIRBAG_COND",
+						"type": "String"
+					},
+					{
+						"name": "AIRBAG_PASS_AV",
+						"type": "String"
+					},
+					{
+						"name": "AIRBAG_LAT_AV",
+						"type": "String"
+					},
+					{
+						"name": "AIRBAG_LAT_AR",
+						"type": "String"
+					},
+					{
+						"name": "DIRECT_ASSIST",
+						"type": "String"
+					},
+					{
+						"name": "ASSIST_FREIN_URGENCE",
+						"type": "String"
+					},
+					{
+						"name": "ANTIBLOC_ROUES",
+						"type": "String"
+					},
+					{
+						"name": "CTRL_DYN_STABILITE",
+						"type": "String"
+					},
+					{
+						"name": "DERNIER_TARIF_E",
+						"type": "String"
+					},
+					{
+						"name": "DERNIER_TARIF_F",
+						"type": "String"
+					},
+					{
+						"name": "DT_DER_TARIF",
+						"type": "String"
+					},
+					{
+						"name": "SOURCE_DER_TARIF",
+						"type": "String"
+					},
+					{
+						"name": "TARIF_ORIGINE_E",
+						"type": "String"
+					},
+					{
+						"name": "TARIF_ORIGINE_F",
+						"type": "String"
+					},
+					{
+						"name": "DT_TARIF_ORIGINE",
+						"type": "String"
+					},
+					{
+						"name": "SOURCE_TARIF_ORIGINE",
+						"type": "String"
+					},
+					{
+						"name": "DERNIER_CT_RMPL_PIECES",
+						"type": "String"
+					},
+					{
+						"name": "DERNIER_CT_RMPL_BLOCOPT",
+						"type": "String"
+					},
+					{
+						"name": "DERNIER_CT_RMPL_PAREBRISE",
+						"type": "String"
+					},
+					{
+						"name": "DT_DERNIER_COUTS",
+						"type": "String"
+					},
+					{
+						"name": "CT_ORIGINE_RMPL_PIECES",
+						"type": "String"
+					},
+					{
+						"name": "CT_ORIGINE_RMPL_BLOCOPT",
+						"type": "String"
+					},
+					{
+						"name": "CT_ORIGINE_RMPL_PAREBRISE",
+						"type": "String"
+					},
+					{
+						"name": "DT_COUTS_ORIGINE",
+						"type": "String"
+					},
+					{
+						"name": "GROUPE_SRA",
+						"type": "String"
+					},
+					{
+						"name": "CLASSE_PRIX",
+						"type": "String"
+					},
+					{
+						"name": "CLASSE_REPARATION",
+						"type": "String"
+					},
+					{
+						"name": "ANTIDEMARRAGE_ACT",
+						"type": "String"
+					},
+					{
+						"name": "DT_ANTIDEMARRAGE_ACT",
+						"type": "String"
+					},
+					{
+						"name": "ANTIDEMARRAGE_PREC",
+						"type": "String"
+					},
+					{
+						"name": "DT_ANTIDEMARRAGE_PREC",
+						"type": "String"
+					},
+					{
+						"name": "CODE_GTA",
+						"type": "String"
+					},
+					{
+						"name": "NOTE_SECU_PASSIVE",
+						"type": "String"
+					},
+					{
+						"name": "CT_CHOC_AV",
+						"type": "String"
+					},
+					{
+						"name": "CT_CHOC_ARR",
+						"type": "String"
+					},
+					{
+						"name": "GROUPE_SRA_ACT",
+						"type": "String"
+					},
+					{
+						"name": "CLASSE_PRIX_ACT",
+						"type": "String"
+					},
+					{
+						"name": "CLASSE_REPAR_ACT",
+						"type": "String"
+					},
+					{
+						"name": "EMISSION_CO2",
+						"type": "String"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[sra].[ImportSRA]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/OutputSqlDataset')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -84,11 +441,414 @@
 					}
 				],
 				"typeProperties": {
-					"tableName": "[concat('[', 'dbo].[emp]')]"
+					"tableName": "[[dbo].[emp]"
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/inputSraImportVehicle')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureBlob",
+				"structure": [
+					{
+						"name": "Prop_0",
+						"type": "String"
+					},
+					{
+						"name": "UpdateMode",
+						"type": "String"
+					},
+					{
+						"name": "Identifiant",
+						"type": "String"
+					},
+					{
+						"name": "NumeroOrdre",
+						"type": "String"
+					},
+					{
+						"name": "Marque",
+						"type": "String"
+					},
+					{
+						"name": "Modele",
+						"type": "String"
+					},
+					{
+						"name": "Version",
+						"type": "String"
+					},
+					{
+						"name": "Generation",
+						"type": "String"
+					},
+					{
+						"name": "Carrosserie",
+						"type": "String"
+					},
+					{
+						"name": "Alimentation",
+						"type": "String"
+					},
+					{
+						"name": "Energie",
+						"type": "String"
+					},
+					{
+						"name": "PuissanceAdministrative",
+						"type": "String"
+					},
+					{
+						"name": "Genre",
+						"type": "String"
+					},
+					{
+						"name": "NbPlaces",
+						"type": "String"
+					},
+					{
+						"name": "SerieLimitee",
+						"type": "String"
+					},
+					{
+						"name": "TypeMines",
+						"type": "String"
+					},
+					{
+						"name": "NumeroCnit",
+						"type": "String"
+					},
+					{
+						"name": "DateDebutCommercialisation",
+						"type": "String"
+					},
+					{
+						"name": "DateFinCommercialisation",
+						"type": "String"
+					},
+					{
+						"name": "NbCylindre",
+						"type": "String"
+					},
+					{
+						"name": "DispositionCylindres",
+						"type": "String"
+					},
+					{
+						"name": "Cylindree",
+						"type": "String"
+					},
+					{
+						"name": "VitesseMaximum",
+						"type": "String"
+					},
+					{
+						"name": "PositionMoteur",
+						"type": "String"
+					},
+					{
+						"name": "PuissanceCee",
+						"type": "String"
+					},
+					{
+						"name": "PuissanceDin",
+						"type": "String"
+					},
+					{
+						"name": "RegimePuissanceMaximum",
+						"type": "String"
+					},
+					{
+						"name": "CoupleMoteurMaximum",
+						"type": "String"
+					},
+					{
+						"name": "RegimeCoupleMoteurMaximum",
+						"type": "String"
+					},
+					{
+						"name": "Transmission",
+						"type": "String"
+					},
+					{
+						"name": "BoiteVitesses",
+						"type": "String"
+					},
+					{
+						"name": "NbRapports",
+						"type": "String"
+					},
+					{
+						"name": "Suspension",
+						"type": "String"
+					},
+					{
+						"name": "TypeFreins",
+						"type": "String"
+					},
+					{
+						"name": "AssistanceFreinage",
+						"type": "String"
+					},
+					{
+						"name": "Longueur",
+						"type": "String"
+					},
+					{
+						"name": "Largeur",
+						"type": "String"
+					},
+					{
+						"name": "Hauteur",
+						"type": "String"
+					},
+					{
+						"name": "Empattement",
+						"type": "String"
+					},
+					{
+						"name": "VoieAvant",
+						"type": "String"
+					},
+					{
+						"name": "VoieArriere",
+						"type": "String"
+					},
+					{
+						"name": "PoidsVide",
+						"type": "String"
+					},
+					{
+						"name": "PTAC",
+						"type": "String"
+					},
+					{
+						"name": "ChargeUtile",
+						"type": "String"
+					},
+					{
+						"name": "AirbagConducteur",
+						"type": "String"
+					},
+					{
+						"name": "AirbagPassagerAvant",
+						"type": "String"
+					},
+					{
+						"name": "AirbagsLaterauxAvant",
+						"type": "String"
+					},
+					{
+						"name": "AirbagsLaterauxArriere",
+						"type": "String"
+					},
+					{
+						"name": "DirectionAssistee",
+						"type": "String"
+					},
+					{
+						"name": "AssistanceFreinageUrgence",
+						"type": "String"
+					},
+					{
+						"name": "AntiblocageRoues",
+						"type": "String"
+					},
+					{
+						"name": "ControleDynamiqueStabilite",
+						"type": "String"
+					},
+					{
+						"name": "DernierTarifEuros",
+						"type": "String"
+					},
+					{
+						"name": "DernierTarifFrancs",
+						"type": "String"
+					},
+					{
+						"name": "DatDernierTarif",
+						"type": "String"
+					},
+					{
+						"name": "SourceDernierTarif",
+						"type": "String"
+					},
+					{
+						"name": "TarifOrigineEuros",
+						"type": "String"
+					},
+					{
+						"name": "TarifOrigineFrancs",
+						"type": "String"
+					},
+					{
+						"name": "DateTarifOrigine",
+						"type": "String"
+					},
+					{
+						"name": "SourceTarifOrigine",
+						"type": "String"
+					},
+					{
+						"name": "DernierCoutRempPiecesEurosHt",
+						"type": "String"
+					},
+					{
+						"name": "DernierCoutRempBlocOptiqueEurosHt",
+						"type": "String"
+					},
+					{
+						"name": "DernierCoutRempPareBriseEurosHt",
+						"type": "String"
+					},
+					{
+						"name": "DateDerniersCouts",
+						"type": "String"
+					},
+					{
+						"name": "CoutOrigineRempPiecesEurosHt",
+						"type": "String"
+					},
+					{
+						"name": "CoutOrigineRempBlocOptiqueEurosHt",
+						"type": "String"
+					},
+					{
+						"name": "CoutOrigineRempPareBriseEurosHt",
+						"type": "String"
+					},
+					{
+						"name": "DateCoutsOrigine",
+						"type": "String"
+					},
+					{
+						"name": "GroupeSraOrigine",
+						"type": "String"
+					},
+					{
+						"name": "ClassePrixOrigine",
+						"type": "String"
+					},
+					{
+						"name": "ClasseReparationOrigine",
+						"type": "String"
+					},
+					{
+						"name": "AntidemarrageActuel",
+						"type": "String"
+					},
+					{
+						"name": "DateAttributionAntidemarrageActuel",
+						"type": "String"
+					},
+					{
+						"name": "AntidemarragePrecedent",
+						"type": "String"
+					},
+					{
+						"name": "DateAttributionAntidemarragePrecedent",
+						"type": "String"
+					},
+					{
+						"name": "GroupeApsad",
+						"type": "String"
+					},
+					{
+						"name": "ClasseApsad",
+						"type": "String"
+					},
+					{
+						"name": "CodeGta",
+						"type": "String"
+					},
+					{
+						"name": "NoteSecuritePassive",
+						"type": "String"
+					},
+					{
+						"name": "CoutChocAvant",
+						"type": "String"
+					},
+					{
+						"name": "CoutChocArriere",
+						"type": "String"
+					},
+					{
+						"name": "GroupeSraActuel",
+						"type": "String"
+					},
+					{
+						"name": "ClassePrixActuelle",
+						"type": "String"
+					},
+					{
+						"name": "ClasseReparationActuelle",
+						"type": "String"
+					},
+					{
+						"name": "SystemeLocalisation",
+						"type": "String"
+					},
+					{
+						"name": "DateEquipementVehicule",
+						"type": "String"
+					},
+					{
+						"name": "EmissionCo2",
+						"type": "String"
+					},
+					{
+						"name": "EtoilesSecuritePassive",
+						"type": "String"
+					},
+					{
+						"name": "SystemeStopStart",
+						"type": "String"
+					},
+					{
+						"name": "SystemeAnticipationObstacle",
+						"type": "String"
+					},
+					{
+						"name": "Prop_90",
+						"type": "String"
+					},
+					{
+						"name": "Prop_91",
+						"type": "String"
+					},
+					{
+						"name": "Prop_92",
+						"type": "String"
+					}
+				],
+				"typeProperties": {
+					"format": {
+						"type": "TextFormat",
+						"columnDelimiter": ";",
+						"rowDelimiter": "",
+						"nullValue": "\\N",
+						"treatEmptyAsNull": true,
+						"skipLineCount": 0,
+						"firstRowAsHeader": false
+					},
+					"fileName": "[parameters('inputSraImportVehicle_properties_typeProperties_fileName')]",
+					"folderPath": "[parameters('inputSraImportVehicle_properties_typeProperties_folderPath')]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
 			]
 		},
 		{
@@ -260,13 +1020,191 @@
 								"parameters": {}
 							}
 						]
+					},
+					{
+						"name": "SendMailSuccess",
+						"type": "WebActivity",
+						"dependsOn": [
+							{
+								"activity": "CopyFromBlobToBlob",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"url": "https://prod-113.westeurope.logic.azure.com:443/workflows/c6fe8a1133434414b971fd55f40230c5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ndwg-Bzzv2ffx0DxP3cfcuSpPiJtRBnk7SHfsEZdr9c",
+							"method": "POST",
+							"headers": {
+								"Content-Type": "application/json"
+							},
+							"body": {
+								"message": "@{activity('CopyFromBlobToBlob').output.dataWritten}",
+								"dataFactoryName": "@{pipeline().DataFactory}",
+								"pipelineName": "@{pipeline().Pipeline}",
+								"receiver": "@pipeline().parameters.receiver"
+							}
+						}
 					}
 				],
+				"parameters": {
+					"receiver": {
+						"type": "string",
+						"defaultValue": "khang.nguyen@axa-direct.com"
+					}
+				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/inputblobdataset')]",
 				"[concat(variables('factoryId'), '/datasets/outputblobdataset')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sraImportVehicles')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy to ImportSRA table",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "BlobSource",
+								"recursive": true
+							},
+							"sink": {
+								"type": "SqlSink",
+								"writeBatchSize": 10000
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"columnMappings": {
+									"UpdateMode": "UPDATE_MODE",
+									"Identifiant": "CODE_AUTO",
+									"NumeroOrdre": "NUM_ORDRE",
+									"Marque": "MARQUE",
+									"Modele": "MODELE",
+									"Version": "VERSION",
+									"Generation": "GENERATION",
+									"Carrosserie": "CARROSSERIE",
+									"Alimentation": "ALIMENTATION",
+									"Energie": "ENERGIE",
+									"PuissanceAdministrative": "PUISS_ADMIN",
+									"Genre": "GENRE",
+									"NbPlaces": "NB_PLACE",
+									"SerieLimitee": "SERIE_LMT",
+									"TypeMines": "TYPE_MINES",
+									"NumeroCnit": "NUM_CNIT",
+									"DateDebutCommercialisation": "DT_DEB_COMMER",
+									"DateFinCommercialisation": "DT_FIN_COMMER",
+									"NbCylindre": "NB_CYLINDRE",
+									"DispositionCylindres": "DISPO_CYLINDRE",
+									"Cylindree": "CYLINDREE",
+									"VitesseMaximum": "VITESSE_MAX",
+									"PositionMoteur": "POS_MOTEUR",
+									"PuissanceCee": "PUISS_CEE",
+									"PuissanceDin": "PUISS_DIN",
+									"RegimePuissanceMaximum": "REGIME_PUISS_MAX",
+									"CoupleMoteurMaximum": "COUPLE_MOTEUR_MAX",
+									"RegimeCoupleMoteurMaximum": "REGIME_CPLMOTEUR_MAX",
+									"Transmission": "TRANSMISSION",
+									"BoiteVitesses": "BOITE_VITESSE",
+									"NbRapports": "NB_RAPPORTS",
+									"Suspension": "SUSPENSION",
+									"TypeFreins": "TYPE_FREIN",
+									"AssistanceFreinage": "ASSIST_FREIN",
+									"Longueur": "LONGUEUR",
+									"Largeur": "LARGEUR",
+									"Hauteur": "HAUTEUR",
+									"Empattement": "EMPATTEMENT",
+									"VoieAvant": "VOIE_AV",
+									"VoieArriere": "VOIE_ARR",
+									"PoidsVide": "POIDS_VIDE",
+									"PTAC": "PTAC",
+									"ChargeUtile": "CHARGE_UTILE",
+									"AirbagConducteur": "AIRBAG_COND",
+									"AirbagPassagerAvant": "AIRBAG_PASS_AV",
+									"AirbagsLaterauxAvant": "AIRBAG_LAT_AV",
+									"AirbagsLaterauxArriere": "AIRBAG_LAT_AR",
+									"DirectionAssistee": "DIRECT_ASSIST",
+									"AssistanceFreinageUrgence": "ASSIST_FREIN_URGENCE",
+									"AntiblocageRoues": "ANTIBLOC_ROUES",
+									"ControleDynamiqueStabilite": "CTRL_DYN_STABILITE",
+									"DernierTarifEuros": "DERNIER_TARIF_E",
+									"DernierTarifFrancs": "DERNIER_TARIF_F",
+									"DatDernierTarif": "DT_DER_TARIF",
+									"SourceDernierTarif": "SOURCE_DER_TARIF",
+									"TarifOrigineEuros": "TARIF_ORIGINE_E",
+									"TarifOrigineFrancs": "TARIF_ORIGINE_F",
+									"DateTarifOrigine": "DT_TARIF_ORIGINE",
+									"SourceTarifOrigine": "SOURCE_TARIF_ORIGINE",
+									"DernierCoutRempPiecesEurosHt": "DERNIER_CT_RMPL_PIECES",
+									"DernierCoutRempBlocOptiqueEurosHt": "DERNIER_CT_RMPL_BLOCOPT",
+									"DernierCoutRempPareBriseEurosHt": "DERNIER_CT_RMPL_PAREBRISE",
+									"DateDerniersCouts": "DT_DERNIER_COUTS",
+									"CoutOrigineRempPiecesEurosHt": "CT_ORIGINE_RMPL_PIECES",
+									"CoutOrigineRempBlocOptiqueEurosHt": "CT_ORIGINE_RMPL_BLOCOPT",
+									"CoutOrigineRempPareBriseEurosHt": "CT_ORIGINE_RMPL_PAREBRISE",
+									"DateCoutsOrigine": "DT_COUTS_ORIGINE",
+									"GroupeSraOrigine": "GROUPE_SRA",
+									"ClassePrixOrigine": "CLASSE_PRIX",
+									"ClasseReparationOrigine": "CLASSE_REPARATION",
+									"AntidemarrageActuel": "ANTIDEMARRAGE_ACT",
+									"DateAttributionAntidemarrageActuel": "DT_ANTIDEMARRAGE_ACT",
+									"AntidemarragePrecedent": "ANTIDEMARRAGE_PREC",
+									"DateAttributionAntidemarragePrecedent": "DT_ANTIDEMARRAGE_PREC",
+									"CodeGta": "CODE_GTA",
+									"NoteSecuritePassive": "NOTE_SECU_PASSIVE",
+									"CoutChocAvant": "CT_CHOC_AV",
+									"CoutChocArriere": "CT_CHOC_ARR",
+									"GroupeSraActuel": "GROUPE_SRA_ACT",
+									"ClassePrixActuelle": "CLASSE_PRIX_ACT",
+									"ClasseReparationActuelle": "CLASSE_REPAR_ACT",
+									"EmissionCo2": "EMISSION_CO2"
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "inputSraImportVehicle",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ImportRawSra",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/inputSraImportVehicle')]",
+				"[concat(variables('factoryId'), '/datasets/ImportRawSra')]"
 			]
 		}
 	]
