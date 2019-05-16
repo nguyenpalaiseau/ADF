@@ -11,10 +11,12 @@
 					},
 					"name": "source1",
 					"script": "source(output(\n\t\tID as integer,\n\t\tFirstName as string,\n\t\tLastName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table') ~> source1"
-				},
+				}
+			],
+			"sinks": [
 				{
-					"name": "source2",
-					"script": "source(output(\n\t\t\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> source2"
+					"name": "sink1",
+					"script": "Filter1 sink() ~> sink1"
 				}
 			],
 			"transformations": [
