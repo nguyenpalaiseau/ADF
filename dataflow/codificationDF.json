@@ -8,8 +8,18 @@
 		"typeProperties": {
 			"sources": [
 				{
+					"dataset": {
+						"referenceName": "sraInputCodification",
+						"type": "DatasetReference"
+					},
 					"name": "ImportRawCodifications",
-					"script": "source(output(\n\t\t\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> ImportRawCodifications"
+					"script": "source(output(\n\t\tProp_0 as string,\n\t\tProp_1 as string,\n\t\tProp_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> ImportRawCodifications"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ConditionalSplit1",
+					"script": "ImportRawCodifications split(ERROR_FUNCTION(''),\n\tdisjoint: false) ~> ConditionalSplit1@(, )"
 				}
 			]
 		}

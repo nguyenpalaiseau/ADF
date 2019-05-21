@@ -24,6 +24,14 @@
 			{
 				"name": "Prop_0",
 				"type": "String"
+			},
+			{
+				"name": "Prop_1",
+				"type": "String"
+			},
+			{
+				"name": "Prop_2",
+				"type": "String"
 			}
 		]
 	}
