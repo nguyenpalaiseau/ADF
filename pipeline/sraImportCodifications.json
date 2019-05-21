@@ -1,6 +1,16 @@
 {
 	"name": "sraImportCodifications",
 	"properties": {
+		"parameters": {
+			"ImportTableAirbagSide": {
+				"type": "string",
+				"defaultValue": "##ImportAirbagSide"
+			},
+			"ImportTableBrand": {
+				"type": "string",
+				"defaultValue": "##ImportBrand"
+			}
+		},
 		"folder": {
 			"name": "SRA"
 		}
