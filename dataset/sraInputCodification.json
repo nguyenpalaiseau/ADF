@@ -1,5 +1,5 @@
 {
-	"name": "inputCodification",
+	"name": "sraInputCodification",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureStorageLinkedService",

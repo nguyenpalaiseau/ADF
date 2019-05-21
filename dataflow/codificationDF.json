@@ -4,6 +4,14 @@
 		"folder": {
 			"name": "SRA"
 		},
-		"type": "MappingDataFlow"
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"name": "ImportRawCodifications",
+					"script": "source(output(\n\t\t\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> ImportRawCodifications"
+				}
+			]
+		}
 	}
 }
