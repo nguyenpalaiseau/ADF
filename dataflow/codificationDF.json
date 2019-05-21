@@ -1,6 +1,9 @@
 {
-	"name": "dataflow2",
+	"name": "codificationDF",
 	"properties": {
+		"folder": {
+			"name": "SRA"
+		},
 		"type": "MappingDataFlow"
 	}
 }
