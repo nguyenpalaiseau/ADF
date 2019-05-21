@@ -5,6 +5,9 @@
 			"referenceName": "AzureSqlDatabaseLinkedService",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "SRA"
+		},
 		"type": "AzureSqlTable",
 		"structure": [
 			{
