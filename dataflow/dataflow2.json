@@ -1,0 +1,6 @@
+{
+	"name": "dataflow2",
+	"properties": {
+		"type": "MappingDataFlow"
+	}
+}
