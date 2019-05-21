@@ -1,0 +1,14 @@
+{
+	"name": "tempBrand",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "SRA"
+		},
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
