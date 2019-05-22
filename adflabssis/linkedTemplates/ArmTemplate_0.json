@@ -1064,6 +1064,33 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/tempMRQ')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "output",
+						"container": "adf-blob"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/CopyBlobBasePipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1378,17 +1405,17 @@
 					"sinks": [
 						{
 							"dataset": {
-								"referenceName": "tempBrand",
+								"referenceName": "tempMRQ",
 								"type": "DatasetReference"
 							},
 							"name": "sink1",
-							"script": "SelectMRQExternalIdAndDesc sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table',\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tmapColumn(\n\t\tExternalId,\n\t\tShortDesc\n\t)) ~> sink1"
+							"script": "SelectMRQExternalIdAndDesc sink(allowSchemaDrift: true,\n\tvalidateSchema: false) ~> sink1"
 						}
 					],
 					"transformations": [
 						{
 							"name": "CodificationsSplit",
-							"script": "CodificationsSource split(Prop_0 == 'MRQ',\n\tProp_0 == 'SGT',\n\tProp_0 == 'CAR',\n\tProp_0=='ENE',\n\tProp_0=='ALI',\n\tProp_0=='BDV',\n\tProp_0=='TRA',\n\tProp_0=='CPX',\n\tProp_0=='CRE',\n\tProp_0=='GRE',\n\tProp_0=='MOD',\n\tProp_0=='ALV',\n\tProp_0=='ALR',\n\tProp_0=='AFU',\n\tdisjoint: false) ~> CodificationsSplit@(MRQ, SGT, CAR, ENE, ALI, BDV, TRA, CPX, CRE, GRE, MOD, ALV, ALR, AFU)"
+							"script": "CodificationsSource split(Prop_0=='MRQ',\n\tProp_0=='SGT',\n\tProp_0=='CAR',\n\tProp_0=='ENE',\n\tProp_0=='ALI',\n\tProp_0=='BDV',\n\tProp_0=='TRA',\n\tProp_0=='CPX',\n\tProp_0=='CRE',\n\tProp_0=='GRE',\n\tProp_0=='MOD',\n\tProp_0=='ALV',\n\tProp_0=='ALR',\n\tProp_0=='AFU',\n\tdisjoint: false) ~> CodificationsSplit@(MRQ, SGT, CAR, ENE, ALI, BDV, TRA, CPX, CRE, GRE, MOD, ALV, ALR, AFU)"
 						},
 						{
 							"name": "SelectMRQExternalIdAndDesc",
@@ -1399,7 +1426,7 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/sraInputCodification')]",
-				"[concat(variables('factoryId'), '/datasets/tempBrand')]"
+				"[concat(variables('factoryId'), '/datasets/tempMRQ')]"
 			]
 		},
 		{
