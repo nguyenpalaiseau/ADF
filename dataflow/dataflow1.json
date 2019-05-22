@@ -15,8 +15,12 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "tempBrand",
+						"type": "DatasetReference"
+					},
 					"name": "sink1",
-					"script": "Filter1 sink() ~> sink1"
+					"script": "Filter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table',\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false) ~> sink1"
 				}
 			],
 			"transformations": [
