@@ -1,0 +1,59 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory Name",
+			"defaultValue": "adflabssis"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/codificationDF')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"folder": {
+					"name": "SRA"
+				},
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "sraInputCodification",
+								"type": "DatasetReference"
+							},
+							"name": "CodificationsSource",
+							"script": "source(output(\n\t\tProp_0 as string,\n\t\tProp_1 as string,\n\t\tProp_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> CodificationsSource"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "tempBrand",
+								"type": "DatasetReference"
+							},
+							"name": "sink1",
+							"script": "SelectMRQExternalIdAndDesc sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table',\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false) ~> sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CodificationsSplit",
+							"script": "CodificationsSource split(Prop_0=='MRQ',\n\tProp_0=='SGT',\n\tProp_0=='CAR',\n\tProp_0=='ENE',\n\tProp_0=='ALI',\n\tProp_0=='BDV',\n\tProp_0=='TRA',\n\tProp_0=='CPX',\n\tProp_0=='CRE',\n\tProp_0=='GRE',\n\tProp_0=='MOD',\n\tProp_0=='ALV',\n\tProp_0=='ALR',\n\tProp_0=='AFU',\n\tdisjoint: false) ~> CodificationsSplit@(MRQ, SGT, CAR, ENE, ALI, BDV, TRA, CPX, CRE, GRE, MOD, ALV, ALR, AFU)"
+						},
+						{
+							"name": "SelectMRQExternalIdAndDesc",
+							"script": "CodificationsSplit@MRQ select(mapColumn(\n\t\tExternalId = Prop_1,\n\t\tShortDesc = Prop_2\n\t))~> SelectMRQExternalIdAndDesc"
+						}
+					]
+				}
+			}
+		}
+	]
+}
