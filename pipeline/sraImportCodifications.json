@@ -5,6 +5,14 @@
 			{
 				"name": "codificationDF",
 				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "CreateTempSraImportTables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -20,16 +28,8 @@
 				}
 			},
 			{
-				"name": "Copy Data1",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "codificationDF",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
+				"name": "CreateTempSraImportTables",
+				"type": "SqlServerStoredProcedure",
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -38,17 +38,12 @@
 					"secureInput": false
 				},
 				"typeProperties": {
-					"source": {
-						"type": "AzureSqlSource"
-					},
-					"enableStaging": false
+					"storedProcedureName": "[sra].[CreateTempSraImportTables]"
 				},
-				"inputs": [
-					{
-						"referenceName": "tempBrand",
-						"type": "DatasetReference"
-					}
-				]
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLinkedService",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
