@@ -12,7 +12,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "20190416_010431_Automobiles_quotidien_codification.txt",
+				"fileName": "20190416_010431_Automobiles_quotidien_codification_Azure.txt",
 				"folderPath": "input",
 				"container": "adf-blob"
 			},
