@@ -9,6 +9,12 @@
 			"name": "SRA"
 		},
 		"type": "AzureSqlTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@pipeline().parameters.ImportTableBrand",
+				"type": "Expression"
+			}
+		}
 	}
 }
