@@ -1450,7 +1450,7 @@
 								"type": "DatasetReference"
 							},
 							"name": "CodificationsSource",
-							"script": "source(output(\n\t\tProp_0 as string,\n\t\tProp_1 as string,\n\t\tProp_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tlimit: 100) ~> CodificationsSource",
+							"script": "source(output(\n\t\tProp_0 as string,\n\t\tProp_1 as string,\n\t\tProp_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> CodificationsSource",
 							"typeProperties": {}
 						}
 					],
@@ -1471,7 +1471,7 @@
 						},
 						{
 							"name": "SelectMRQExternalIdAndDesc",
-							"script": "CodificationsSplit@MRQ select(mapColumn(\n\t\tProp_0,\n\t\tExternalId = Prop_1,\n\t\tShortDesc = Prop_2\n\t))~> SelectMRQExternalIdAndDesc"
+							"script": "CodificationsSplit@MRQ select(mapColumn(\n\t\tExternalId = Prop_1,\n\t\tShortDesc = Prop_2\n\t))~> SelectMRQExternalIdAndDesc"
 						}
 					]
 				}
