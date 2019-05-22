@@ -1,0 +1,28 @@
+{
+	"name": "sraMapBrand",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabaseLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "BrandId",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ShortDesc",
+				"type": "varchar"
+			},
+			{
+				"name": "ExternalId",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[sra].[MapBrand]"
+		}
+	}
+}
