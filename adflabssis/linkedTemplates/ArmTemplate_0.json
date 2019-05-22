@@ -79,6 +79,9 @@
 					"referenceName": "AzureSqlDatabaseLinkedService",
 					"type": "LinkedServiceReference"
 				},
+				"folder": {
+					"name": "SRA"
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"structure": [
@@ -438,6 +441,40 @@
 					{
 						"name": "LastName",
 						"type": "String"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[dbo].[emp]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OutputSqlDataset_New')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "FirstName",
+						"type": "varchar"
+					},
+					{
+						"name": "LastName",
+						"type": "varchar"
 					}
 				],
 				"typeProperties": {
@@ -920,6 +957,113 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/sraInputCodification')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureStorageLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SRA"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "20190416_010431_Automobiles_quotidien_codification.txt",
+						"folderPath": "input",
+						"container": "adf-blob"
+					},
+					"columnDelimiter": ";",
+					"escapeChar": "\\",
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Prop_0",
+						"type": "String"
+					},
+					{
+						"name": "Prop_1",
+						"type": "String"
+					},
+					{
+						"name": "Prop_2",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sraMapBrand')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SRA"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "BrandId",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "ShortDesc",
+						"type": "varchar"
+					},
+					{
+						"name": "ExternalId",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[sra].[MapBrand]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tempBrand')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabaseLinkedService",
+					"type": "LinkedServiceReference"
+				},
+				"folder": {
+					"name": "SRA"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"tableName": {
+						"value": "@pipeline().parameters.ImportTableBrand",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/CopyBlobBasePipeline')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1200,11 +1344,182 @@
 						]
 					}
 				],
+				"folder": {
+					"name": "SRA"
+				},
 				"annotations": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/inputSraImportVehicle')]",
 				"[concat(variables('factoryId'), '/datasets/ImportRawSra')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/codificationDF')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"folder": {
+					"name": "SRA"
+				},
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "sraInputCodification",
+								"type": "DatasetReference"
+							},
+							"name": "CodificationsSource",
+							"script": "source(output(\n\t\tProp_0 as string,\n\t\tProp_1 as string,\n\t\tProp_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> CodificationsSource",
+							"typeProperties": {}
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "tempBrand",
+								"type": "DatasetReference"
+							},
+							"name": "sink1",
+							"script": "SelectMRQExternalIdAndDesc sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table',\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tmapColumn(\n\t\tExternalId,\n\t\tShortDesc\n\t)) ~> sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CodificationsSplit",
+							"script": "CodificationsSource split(Prop_0 == 'MRQ',\n\tProp_0 == 'SGT',\n\tProp_0 == 'CAR',\n\tProp_0=='ENE',\n\tProp_0=='ALI',\n\tProp_0=='BDV',\n\tProp_0=='TRA',\n\tProp_0=='CPX',\n\tProp_0=='CRE',\n\tProp_0=='GRE',\n\tProp_0=='MOD',\n\tProp_0=='ALV',\n\tProp_0=='ALR',\n\tProp_0=='AFU',\n\tdisjoint: false) ~> CodificationsSplit@(MRQ, SGT, CAR, ENE, ALI, BDV, TRA, CPX, CRE, GRE, MOD, ALV, ALR, AFU)"
+						},
+						{
+							"name": "SelectMRQExternalIdAndDesc",
+							"script": "CodificationsSplit@MRQ select(mapColumn(\n\t\tProp_0,\n\t\tExternalId = Prop_1,\n\t\tShortDesc = Prop_2\n\t))~> SelectMRQExternalIdAndDesc"
+						}
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/sraInputCodification')]",
+				"[concat(variables('factoryId'), '/datasets/tempBrand')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "OutputSqlDataset_New",
+								"type": "DatasetReference"
+							},
+							"name": "source1",
+							"script": "source(output(\n\t\tID as integer,\n\t\tFirstName as string,\n\t\tLastName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table') ~> source1",
+							"typeProperties": {}
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "tempBrand",
+								"type": "DatasetReference"
+							},
+							"name": "sink1",
+							"script": "Filter1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table',\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false) ~> sink1"
+						}
+					],
+					"transformations": [
+						{
+							"name": "Filter1",
+							"script": "source1 filter(ID < 10) ~> Filter1"
+						}
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/OutputSqlDataset_New')]",
+				"[concat(variables('factoryId'), '/datasets/tempBrand')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/sraImportCodifications')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "codificationDF",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [
+							{
+								"activity": "CreateTempSraImportTables",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "codificationDF",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"CodificationsSource": {},
+									"sink1": {}
+								}
+							},
+							"staging": {}
+						}
+					},
+					{
+						"name": "CreateTempSraImportTables",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "7.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[sra].[CreateTempSraImportTables]"
+						},
+						"linkedServiceName": {
+							"referenceName": "AzureSqlDatabaseLinkedService",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"parameters": {
+					"ImportTableAirbagSide": {
+						"type": "string",
+						"defaultValue": "##ImportAirbagSide"
+					},
+					"ImportTableBrand": {
+						"type": "string",
+						"defaultValue": "##ImportBrand"
+					}
+				},
+				"folder": {
+					"name": "SRA"
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/codificationDF')]",
+				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
 			]
 		}
 	]

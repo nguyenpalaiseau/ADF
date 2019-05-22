@@ -6,193 +6,12 @@
 			"type": "string",
 			"metadata": "Data Factory Name",
 			"defaultValue": "adflabssis"
-		},
-		"AzureSqlDatabaseLinkedService_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseLinkedService'"
-		},
-		"AzureStorageLinkedService_connectionString": {
-			"type": "secureString",
-			"metadata": "Secure string for 'connectionString' of 'AzureStorageLinkedService'"
-		},
-		"inputSraImportVehicle_properties_typeProperties_fileName": {
-			"type": "string",
-			"defaultValue": "20190413_010437_Automobiles_quotidien_MAJ_Azure.txt"
-		},
-		"inputSraImportVehicle_properties_typeProperties_folderPath": {
-			"type": "string",
-			"defaultValue": "adf-blob/input"
-		},
-		"inputblobdataset_properties_typeProperties_fileName": {
-			"type": "string",
-			"defaultValue": "emp.txt"
-		},
-		"inputblobdataset_properties_typeProperties_folderPath": {
-			"type": "string",
-			"defaultValue": "adf-blob/input"
-		},
-		"outputblobdataset_properties_typeProperties_fileName": {
-			"type": "string",
-			"defaultValue": ""
-		},
-		"outputblobdataset_properties_typeProperties_folderPath": {
-			"type": "string",
-			"defaultValue": "adf-blob/output"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyBlobBasePipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "CopyFromBlobToSql",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "BlobSource",
-								"recursive": true
-							},
-							"sink": {
-								"type": "SqlSink",
-								"writeBatchSize": 10000
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"columnMappings": {
-									"Prop_0": "FirstName",
-									"Prop_1": "LastName"
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "inputblobdataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "OutputSqlDataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/inputblobdataset')]",
-				"[concat(variables('factoryId'), '/datasets/OutputSqlDataset')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/CopyBlobBlobPipeline')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "CopyFromBlobToBlob",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "BlobSource",
-								"recursive": true
-							},
-							"sink": {
-								"type": "BlobSink"
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "inputblobdataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "outputblobdataset",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					},
-					{
-						"name": "SendMailSuccess",
-						"type": "WebActivity",
-						"dependsOn": [
-							{
-								"activity": "CopyFromBlobToBlob",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"url": "https://prod-113.westeurope.logic.azure.com:443/workflows/c6fe8a1133434414b971fd55f40230c5/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=ndwg-Bzzv2ffx0DxP3cfcuSpPiJtRBnk7SHfsEZdr9c",
-							"method": "POST",
-							"headers": {
-								"Content-Type": "application/json"
-							},
-							"body": {
-								"message": "@{activity('CopyFromBlobToBlob').output.dataWritten}",
-								"dataFactoryName": "@{pipeline().DataFactory}",
-								"pipelineName": "@{pipeline().Pipeline}",
-								"receiver": "@pipeline().parameters.receiver"
-							}
-						}
-					}
-				],
-				"parameters": {
-					"receiver": {
-						"type": "string",
-						"defaultValue": "khang.nguyen@axa-direct.com"
-					}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/inputblobdataset')]",
-				"[concat(variables('factoryId'), '/datasets/outputblobdataset')]"
-			]
-		},
 		{
 			"name": "[concat(parameters('factoryName'), '/sraImportCodifications')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
@@ -217,24 +36,16 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
 						"typeProperties": {
 							"dataflow": {
 								"referenceName": "codificationDF",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"CodificationsSource": {},
-									"sink1": {}
-								}
-							},
-							"staging": {}
+								"type": "DataFlowReference"
+							}
 						}
 					},
 					{
 						"name": "CreateTempSraImportTables",
 						"type": "SqlServerStoredProcedure",
-						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -242,7 +53,6 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
 						"typeProperties": {
 							"storedProcedureName": "[[sra].[CreateTempSraImportTables]"
 						},
@@ -264,12 +74,10 @@
 				},
 				"folder": {
 					"name": "SRA"
-				},
-				"annotations": []
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/codificationDF')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
+				"[concat(variables('factoryId'), '/dataflows/codificationDF')]"
 			]
 		},
 		{
@@ -281,7 +89,6 @@
 					{
 						"name": "Copy to ImportSRA table",
 						"type": "Copy",
-						"dependsOn": [],
 						"policy": {
 							"timeout": "7.00:00:00",
 							"retry": 0,
@@ -289,7 +96,6 @@
 							"secureOutput": false,
 							"secureInput": false
 						},
-						"userProperties": [],
 						"typeProperties": {
 							"source": {
 								"type": "BlobSource",
@@ -391,26 +197,22 @@
 						"inputs": [
 							{
 								"referenceName": "inputSraImportVehicle",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ImportRawSra",
-								"type": "DatasetReference",
-								"parameters": {}
+								"type": "DatasetReference"
 							}
 						]
 					}
 				],
 				"folder": {
 					"name": "SRA"
-				},
-				"annotations": []
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/inputSraImportVehicle')]",
 				"[concat(variables('factoryId'), '/datasets/ImportRawSra')]"
 			]
 		},
@@ -426,7 +228,6 @@
 				"folder": {
 					"name": "SRA"
 				},
-				"annotations": [],
 				"type": "AzureSqlTable",
 				"structure": [
 					{
@@ -761,39 +562,7 @@
 				"typeProperties": {
 					"tableName": "[[sra].[ImportSRA]"
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/OutputSqlDataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabaseLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"structure": [
-					{
-						"name": "FirstName",
-						"type": "String"
-					},
-					{
-						"name": "LastName",
-						"type": "String"
-					}
-				],
-				"typeProperties": {
-					"tableName": "[[dbo].[emp]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
-			]
+			}
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/OutputSqlDataset_New')]",
@@ -804,7 +573,6 @@
 					"referenceName": "AzureSqlDatabaseLinkedService",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
 					{
@@ -824,481 +592,7 @@
 				"typeProperties": {
 					"tableName": "[[dbo].[emp]"
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/inputSraImportVehicle')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureBlob",
-				"structure": [
-					{
-						"name": "Prop_0",
-						"type": "String"
-					},
-					{
-						"name": "UpdateMode",
-						"type": "String"
-					},
-					{
-						"name": "Identifiant",
-						"type": "String"
-					},
-					{
-						"name": "NumeroOrdre",
-						"type": "String"
-					},
-					{
-						"name": "Marque",
-						"type": "String"
-					},
-					{
-						"name": "Modele",
-						"type": "String"
-					},
-					{
-						"name": "Version",
-						"type": "String"
-					},
-					{
-						"name": "Generation",
-						"type": "String"
-					},
-					{
-						"name": "Carrosserie",
-						"type": "String"
-					},
-					{
-						"name": "Alimentation",
-						"type": "String"
-					},
-					{
-						"name": "Energie",
-						"type": "String"
-					},
-					{
-						"name": "PuissanceAdministrative",
-						"type": "String"
-					},
-					{
-						"name": "Genre",
-						"type": "String"
-					},
-					{
-						"name": "NbPlaces",
-						"type": "String"
-					},
-					{
-						"name": "SerieLimitee",
-						"type": "String"
-					},
-					{
-						"name": "TypeMines",
-						"type": "String"
-					},
-					{
-						"name": "NumeroCnit",
-						"type": "String"
-					},
-					{
-						"name": "DateDebutCommercialisation",
-						"type": "String"
-					},
-					{
-						"name": "DateFinCommercialisation",
-						"type": "String"
-					},
-					{
-						"name": "NbCylindre",
-						"type": "String"
-					},
-					{
-						"name": "DispositionCylindres",
-						"type": "String"
-					},
-					{
-						"name": "Cylindree",
-						"type": "String"
-					},
-					{
-						"name": "VitesseMaximum",
-						"type": "String"
-					},
-					{
-						"name": "PositionMoteur",
-						"type": "String"
-					},
-					{
-						"name": "PuissanceCee",
-						"type": "String"
-					},
-					{
-						"name": "PuissanceDin",
-						"type": "String"
-					},
-					{
-						"name": "RegimePuissanceMaximum",
-						"type": "String"
-					},
-					{
-						"name": "CoupleMoteurMaximum",
-						"type": "String"
-					},
-					{
-						"name": "RegimeCoupleMoteurMaximum",
-						"type": "String"
-					},
-					{
-						"name": "Transmission",
-						"type": "String"
-					},
-					{
-						"name": "BoiteVitesses",
-						"type": "String"
-					},
-					{
-						"name": "NbRapports",
-						"type": "String"
-					},
-					{
-						"name": "Suspension",
-						"type": "String"
-					},
-					{
-						"name": "TypeFreins",
-						"type": "String"
-					},
-					{
-						"name": "AssistanceFreinage",
-						"type": "String"
-					},
-					{
-						"name": "Longueur",
-						"type": "String"
-					},
-					{
-						"name": "Largeur",
-						"type": "String"
-					},
-					{
-						"name": "Hauteur",
-						"type": "String"
-					},
-					{
-						"name": "Empattement",
-						"type": "String"
-					},
-					{
-						"name": "VoieAvant",
-						"type": "String"
-					},
-					{
-						"name": "VoieArriere",
-						"type": "String"
-					},
-					{
-						"name": "PoidsVide",
-						"type": "String"
-					},
-					{
-						"name": "PTAC",
-						"type": "String"
-					},
-					{
-						"name": "ChargeUtile",
-						"type": "String"
-					},
-					{
-						"name": "AirbagConducteur",
-						"type": "String"
-					},
-					{
-						"name": "AirbagPassagerAvant",
-						"type": "String"
-					},
-					{
-						"name": "AirbagsLaterauxAvant",
-						"type": "String"
-					},
-					{
-						"name": "AirbagsLaterauxArriere",
-						"type": "String"
-					},
-					{
-						"name": "DirectionAssistee",
-						"type": "String"
-					},
-					{
-						"name": "AssistanceFreinageUrgence",
-						"type": "String"
-					},
-					{
-						"name": "AntiblocageRoues",
-						"type": "String"
-					},
-					{
-						"name": "ControleDynamiqueStabilite",
-						"type": "String"
-					},
-					{
-						"name": "DernierTarifEuros",
-						"type": "String"
-					},
-					{
-						"name": "DernierTarifFrancs",
-						"type": "String"
-					},
-					{
-						"name": "DatDernierTarif",
-						"type": "String"
-					},
-					{
-						"name": "SourceDernierTarif",
-						"type": "String"
-					},
-					{
-						"name": "TarifOrigineEuros",
-						"type": "String"
-					},
-					{
-						"name": "TarifOrigineFrancs",
-						"type": "String"
-					},
-					{
-						"name": "DateTarifOrigine",
-						"type": "String"
-					},
-					{
-						"name": "SourceTarifOrigine",
-						"type": "String"
-					},
-					{
-						"name": "DernierCoutRempPiecesEurosHt",
-						"type": "String"
-					},
-					{
-						"name": "DernierCoutRempBlocOptiqueEurosHt",
-						"type": "String"
-					},
-					{
-						"name": "DernierCoutRempPareBriseEurosHt",
-						"type": "String"
-					},
-					{
-						"name": "DateDerniersCouts",
-						"type": "String"
-					},
-					{
-						"name": "CoutOrigineRempPiecesEurosHt",
-						"type": "String"
-					},
-					{
-						"name": "CoutOrigineRempBlocOptiqueEurosHt",
-						"type": "String"
-					},
-					{
-						"name": "CoutOrigineRempPareBriseEurosHt",
-						"type": "String"
-					},
-					{
-						"name": "DateCoutsOrigine",
-						"type": "String"
-					},
-					{
-						"name": "GroupeSraOrigine",
-						"type": "String"
-					},
-					{
-						"name": "ClassePrixOrigine",
-						"type": "String"
-					},
-					{
-						"name": "ClasseReparationOrigine",
-						"type": "String"
-					},
-					{
-						"name": "AntidemarrageActuel",
-						"type": "String"
-					},
-					{
-						"name": "DateAttributionAntidemarrageActuel",
-						"type": "String"
-					},
-					{
-						"name": "AntidemarragePrecedent",
-						"type": "String"
-					},
-					{
-						"name": "DateAttributionAntidemarragePrecedent",
-						"type": "String"
-					},
-					{
-						"name": "GroupeApsad",
-						"type": "String"
-					},
-					{
-						"name": "ClasseApsad",
-						"type": "String"
-					},
-					{
-						"name": "CodeGta",
-						"type": "String"
-					},
-					{
-						"name": "NoteSecuritePassive",
-						"type": "String"
-					},
-					{
-						"name": "CoutChocAvant",
-						"type": "String"
-					},
-					{
-						"name": "CoutChocArriere",
-						"type": "String"
-					},
-					{
-						"name": "GroupeSraActuel",
-						"type": "String"
-					},
-					{
-						"name": "ClassePrixActuelle",
-						"type": "String"
-					},
-					{
-						"name": "ClasseReparationActuelle",
-						"type": "String"
-					},
-					{
-						"name": "SystemeLocalisation",
-						"type": "String"
-					},
-					{
-						"name": "DateEquipementVehicule",
-						"type": "String"
-					},
-					{
-						"name": "EmissionCo2",
-						"type": "String"
-					},
-					{
-						"name": "EtoilesSecuritePassive",
-						"type": "String"
-					},
-					{
-						"name": "SystemeStopStart",
-						"type": "String"
-					},
-					{
-						"name": "SystemeAnticipationObstacle",
-						"type": "String"
-					},
-					{
-						"name": "Prop_90",
-						"type": "String"
-					},
-					{
-						"name": "Prop_91",
-						"type": "String"
-					},
-					{
-						"name": "Prop_92",
-						"type": "String"
-					}
-				],
-				"typeProperties": {
-					"format": {
-						"type": "TextFormat",
-						"columnDelimiter": ";",
-						"rowDelimiter": "",
-						"nullValue": "\\N",
-						"treatEmptyAsNull": true,
-						"skipLineCount": 0,
-						"firstRowAsHeader": false
-					},
-					"fileName": "[parameters('inputSraImportVehicle_properties_typeProperties_fileName')]",
-					"folderPath": "[parameters('inputSraImportVehicle_properties_typeProperties_folderPath')]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/inputblobdataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureBlob",
-				"structure": [
-					{
-						"name": "Prop_0",
-						"type": "String"
-					},
-					{
-						"name": "Prop_1",
-						"type": "String"
-					}
-				],
-				"typeProperties": {
-					"format": {
-						"type": "TextFormat",
-						"columnDelimiter": ",",
-						"rowDelimiter": "",
-						"nullValue": "\\N",
-						"treatEmptyAsNull": true,
-						"skipLineCount": 0,
-						"firstRowAsHeader": false
-					},
-					"fileName": "[parameters('inputblobdataset_properties_typeProperties_fileName')]",
-					"folderPath": "[parameters('inputblobdataset_properties_typeProperties_folderPath')]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/outputblobdataset')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureStorageLinkedService",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureBlob",
-				"typeProperties": {
-					"format": {
-						"type": "TextFormat",
-						"columnDelimiter": ",",
-						"rowDelimiter": "",
-						"nullValue": "\\N",
-						"treatEmptyAsNull": true,
-						"skipLineCount": 0,
-						"firstRowAsHeader": false
-					},
-					"fileName": "[parameters('outputblobdataset_properties_typeProperties_fileName')]",
-					"folderPath": "[parameters('outputblobdataset_properties_typeProperties_folderPath')]"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
-			]
+			}
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/sraInputCodification')]",
@@ -1312,7 +606,6 @@
 				"folder": {
 					"name": "SRA"
 				},
-				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
@@ -1339,10 +632,7 @@
 						"type": "String"
 					}
 				]
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureStorageLinkedService')]"
-			]
+			}
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/sraMapBrand')]",
@@ -1356,7 +646,6 @@
 				"folder": {
 					"name": "SRA"
 				},
-				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
 					{
@@ -1376,10 +665,7 @@
 				"typeProperties": {
 					"tableName": "[[sra].[MapBrand]"
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
-			]
+			}
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/tempBrand')]",
@@ -1393,7 +679,6 @@
 				"folder": {
 					"name": "SRA"
 				},
-				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
@@ -1402,36 +687,7 @@
 						"type": "Expression"
 					}
 				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseLinkedService')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabaseLinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabaseLinkedService_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/AzureStorageLinkedService')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureBlobStorage",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureStorageLinkedService_connectionString')]"
-				}
-			},
-			"dependsOn": []
+			}
 		},
 		{
 			"name": "[concat(parameters('factoryName'), '/codificationDF')]",
@@ -1450,8 +706,7 @@
 								"type": "DatasetReference"
 							},
 							"name": "CodificationsSource",
-							"script": "source(output(\n\t\tProp_0 as string,\n\t\tProp_1 as string,\n\t\tProp_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> CodificationsSource",
-							"typeProperties": {}
+							"script": "source(output(\n\t\tProp_0 as string,\n\t\tProp_1 as string,\n\t\tProp_2 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false) ~> CodificationsSource"
 						}
 					],
 					"sinks": [
@@ -1495,8 +750,7 @@
 								"type": "DatasetReference"
 							},
 							"name": "source1",
-							"script": "source(output(\n\t\tID as integer,\n\t\tFirstName as string,\n\t\tLastName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table') ~> source1",
-							"typeProperties": {}
+							"script": "source(output(\n\t\tID as integer,\n\t\tFirstName as string,\n\t\tLastName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'table') ~> source1"
 						}
 					],
 					"sinks": [
