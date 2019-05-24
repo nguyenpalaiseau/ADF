@@ -1586,11 +1586,11 @@
 				"parameters": {
 					"ImportTableAirbagSide": {
 						"type": "string",
-						"defaultValue": "##ImportAirbagSide"
+						"defaultValue": "ImportAirbagSide"
 					},
 					"ImportTableBrand": {
 						"type": "string",
-						"defaultValue": "##ImportBrand"
+						"defaultValue": "ImportBrand"
 					}
 				},
 				"folder": {
